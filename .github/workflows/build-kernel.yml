@@ -83,3 +83,9 @@ jobs:
           name: aospa-vauxite-marble-kernel
           path: kernel_platform/device/xiaomi/marble-kernel/Image
           compression-level: 9
+      - name: Upload module artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kernelsu-module
+          path: kernel_platform/xiaomi/sm8450/out/kernelsu.ko
+          compression-level: 9
