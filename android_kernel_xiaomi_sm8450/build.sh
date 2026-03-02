@@ -119,7 +119,7 @@ get_trees_rev() {
 
 m() {
     make -j$(nproc --all) O=out ARCH=arm64 LLVM=1 LLVM_IAS=1 \
-	    KBUILD_BUILD_USER=adithya KBUILD_BUILD_HOST=android-build \
+	    KBUILD_BUILD_USER=alex KBUILD_BUILD_HOST=github-build \
 		KCFLAGS="-pipe" \
         KCPPFLAGS="-pipe" \
         LDFLAGS="-Wl,--threads" \
