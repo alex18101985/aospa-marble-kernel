@@ -18,7 +18,6 @@ ONLY_CONFIG=false
 ONLY_KERNEL=false
 ONLY_DTB=false
 ONLY_MODULES=false
-ONLY_KSU=false
 TARGET=
 DTB_WILDCARD="*"
 DTBO_WILDCARD="*"
@@ -31,7 +30,6 @@ while [ $# -gt 0 ]; do
         -k | --only-kernel) ONLY_KERNEL=true ;;
         -d | --only-dtb) ONLY_DTB=true ;;
         -m | --only-modules) ONLY_MODULES=true ;;
-		-s | --only-ksu) ONLY_KSU=true ;;
         *) TARGET="$1" ;;
     esac
     shift
@@ -215,27 +213,6 @@ build_modules() {
     sed -E -i 's|([^: ]*/)([^/]*\.ko)([:]?)([ ]\|$)|/vendor_dlkm/lib/modules/\2\3\4|g' $VDLKM_DIR/modules.dep
 }
 
-build_kernelsu_only() {
-    echo_i "Building only KernelSU module..."
-
-    # Убедись что конфиг уже сгенерирован
-    m modules_prepare
-
-    # Собираем только директорию KernelSU
-    m M=drivers/kernelsu
-
-    # Найти и скопировать модуль
-    ksu_path=$(find out -name kernelsu.ko -print -quit)
-
-    if [ -n "$ksu_path" ]; then
-        cp "$ksu_path" out/
-        echo_i "kernelsu.ko copied to out/"
-    else
-        echo_e "kernelsu.ko not found!"
-        exit 1
-    fi
-}
-
 build_dtbs() {
     echo_i "Building dtbs..."
     m dtbs
@@ -290,8 +267,7 @@ $NO_LTO && {
 
 $ONLY_CONFIG && exit
 
-if $ONLY_KSU; then build_kernelsu_only
-elif $ONLY_KERNEL; then build_kernel
+if $ONLY_KERNEL; then build_kernel
 elif $ONLY_DTB; then build_dtbs
 elif $ONLY_MODULES; then build_modules
 else {
