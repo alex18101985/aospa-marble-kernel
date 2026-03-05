@@ -7,17 +7,6 @@ jobs:
   build-kernel:
     runs-on: ubuntu-22.04
     steps:
-#      - name: Free disk space
-#        if: ${{ true }}
-#        uses: jlumbroso/free-disk-space@main
-#        with:
-#          tool-cache: true
-#          android: true
-#          dotnet: true
-#          haskell: true
-#          large-packages: true
-#          docker-images: true
-#          swap-storage: false
       - name: Set swap space
         uses: pierotofy/set-swap-space@master
         with:
@@ -64,9 +53,6 @@ jobs:
           cd kernel_platform/xiaomi/sm8450
           rm -rf KernelSU
           curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
-#          cd KernelSU
-#          git fetch origin
-#          git checkout dc1f174
       - name: Include SuSFS
         run: |
           HOME="$(pwd)"
