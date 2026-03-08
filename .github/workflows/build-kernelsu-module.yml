@@ -1,10 +1,10 @@
-name: build-modules
+name: build-kernelsu-module
 on:
   workflow_dispatch:
 env:
   CLANG_DIR: clang-r510928
 jobs:
-  build-modules:
+  build-kernelsu-module:
     runs-on: ubuntu-22.04
     steps:
       - name: Free disk space
