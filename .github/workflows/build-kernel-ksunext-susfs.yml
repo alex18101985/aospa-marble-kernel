@@ -1,10 +1,10 @@
-name: build-kernel-image-kowsu
+name: build-kernel-ksunext-susfs
 on:
   workflow_dispatch:
 env:
   CLANG_DIR: clang-r510928
 jobs:
-  build-kernel-image-kowsu:
+  build-kernel-ksunext-susfs:
     runs-on: ubuntu-22.04
     steps:
       - name: Set swap space
@@ -16,7 +16,7 @@ jobs:
           sudo sysctl -w vm.swappiness=100
       - uses: actions/checkout@v6
         with:
-          path: aospa-kernel-build
+          path: aospa-gki-kernel
       - name: Setup Python
         uses: actions/setup-python@v5 
         with:
