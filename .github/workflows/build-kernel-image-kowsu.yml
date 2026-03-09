@@ -55,7 +55,7 @@ jobs:
         run: |
           cd kernel_platform/xiaomi/sm8450
           rm -rf KernelSU
-          curl -LSs "https://raw.githubusercontent.com/KOWX712/KernelSU/staging/kernel/setup.sh" | bash -
+          curl -LSs "https://raw.githubusercontent.com/KOWX712/KernelSU/refs/heads/staging/kernel/setup.sh" | bash s- staging
       - name: Patch with custom configurations
         run: |
           cp -rvf aospa-kernel-build/android_kernel_xiaomi_sm8450/. kernel_platform/xiaomi/sm8450
