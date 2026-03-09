@@ -61,7 +61,6 @@ VDLKM_DIR="$KERNEL_DIR/vendor_dlkm"
 DEFCONFIG="gki_defconfig"
 DEFCONFIGS="vendor/waipio_GKI.config \
 vendor/xiaomi_GKI.config \
-vendor/susfs.config \
 vendor/westwood.config \
 vendor/debugfs.config"
 
