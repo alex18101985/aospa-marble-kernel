@@ -138,6 +138,14 @@ build_modules() {
     rm -rf out/modules out/*.ko
     m INSTALL_MOD_PATH=modules INSTALL_MOD_STRIP=1 modules_install
 
+	ksu_path="$(find $modules_out -name 'kernelsu.ko' -print -quit)"
+    if [ -n "$ksu_path" ]; then
+        mv "$ksu_path" out
+        echo_i "Copied to out/kernelsu.ko"
+    else
+        echo_e "Unable to locate ksu module!"
+    fi
+
     echo_i "Building techpack modules..."
     for module in $MODULES; do
         echo -e "\nBuilding $module..."
@@ -245,7 +253,8 @@ m $DEFCONFIG
 m ./scripts/kconfig/merge_config.sh $DEFCONFIGS vendor/${TARGET}_GKI.config
 scripts/config --file out/.config \
     --set-str LOCALVERSION "-AOSPA-Vauxite-GKI-WildKSU-SuSFS" \
-    -d LOCALVERSION_AUTO
+    -d LOCALVERSION_AUTO \
+	-m CONFIG_KSU
 $NO_LTO && {
     scripts/config --file out/.config \
         --set-str LOCALVERSION "-AOSPA-Vauxite-GKI-WildKSU-SuSFS-noLTO" \
