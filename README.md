@@ -1,4 +1,4 @@
-# AOSPA Vauxite GKI Kernel
+# AOSPA GKI Kernel
 ## Differences from stock AOSPA kernel:
 - Added Wild KSU
 - Added SUSFS
