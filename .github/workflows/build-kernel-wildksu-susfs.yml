@@ -76,6 +76,11 @@ jobs:
           cp -r susfs4ksu/kernel_patches/* kernel_platform/xiaomi/sm8450
           cd kernel_platform/xiaomi/sm8450
           patch -p1 < 50_add_susfs_in_gki-android12-5.10.patch
+      - name: Fix SUSFS supercalls
+        run: |
+          cd kernel_platform/xiaomi/sm8450
+          sed -i '/CMD_SUSFS_SET_ANDROID_DATA_ROOT_PATH/,/return 0;/d' drivers/kernelsu/supercalls.c
+          sed -i '/CMD_SUSFS_SET_SDCARD_ROOT_PATH/,/return 0;/d' drivers/kernelsu/supercalls.c
       - name: Patch with custom configurations
         run: |
           cp -rvf aospa-vauxite-gki-kernel/android_kernel_xiaomi_sm8450/. kernel_platform/xiaomi/sm8450
