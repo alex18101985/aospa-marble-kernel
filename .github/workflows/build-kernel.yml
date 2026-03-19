@@ -47,7 +47,7 @@ jobs:
           repo sync
           mkdir -p kernel_platform/device/xiaomi/marble-kernel/dtbs
       - name: Cache Clang
-        uses: actions/cache@v5.0.3
+        uses: actions/cache@v5.0.4
         with:
           path: kernel_platform/clang
           key: clang-r510928
@@ -69,14 +69,12 @@ jobs:
         run: |
           cd kernel_platform/xiaomi/sm8450
           rm -rf KernelSU kernelsu drivers/kernelsu
-          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s dev
+          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy_susfs
       - name: Include SUSFS
         run: |
           HOME="$(pwd)"
           cp -r susfs4ksu/kernel_patches/* kernel_platform/xiaomi/sm8450
-          cd kernel_platform/xiaomi/sm8450/KernelSU
-          patch -p1 < 10_enable_susfs_for_ksu.patch
-          cd ..
+          cd kernel_platform/xiaomi/sm8450
           patch -p1 < 50_add_susfs_in_gki-android12-5.10.patch
       - name: Patch with custom configurations
         run: |
@@ -90,7 +88,7 @@ jobs:
           ./build.sh marble
       - name: Zip output
         run: |
-          git clone --depth=1 -b marble https://github.com/bryanyee33/AnyKernel3.git AnyKernel3-marble
+          git clone --depth=1 -b marble https://github.com/alex18101985/AnyKernel3.git AnyKernel3-marble
           cd AnyKernel3-marble
           cp ../kernel_platform/device/xiaomi/marble-kernel/Image .
           rm -r .git README.md
@@ -98,7 +96,7 @@ jobs:
           find . -type d -empty -delete
           zip -r9 "../marble-kernel.zip" *
           cd ..
-          git clone --depth=1 -b pzqqt https://github.com/bryanyee33/AnyKernel3.git AnyKernel3-pzqqt
+          git clone --depth=1 -b pzqqt https://github.com/alex18101985/AnyKernel3.git AnyKernel3-pzqqt
           cd AnyKernel3-pzqqt
           cp ../kernel_platform/device/xiaomi/marble-kernel/Image .
           cp ../kernel_platform/device/xiaomi/marble-kernel/dtbs/dtbo.img .
@@ -112,20 +110,20 @@ jobs:
         id: tag
         run: echo "release_tag=AOSPA_Marble_GKI_KSUNext_SUSFS_$(date +'%Y.%m.%d_%H%M')" >> "$GITHUB_OUTPUT"
       - name: Create release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.6.1
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
           files: |
-            marble-kernel.zip
-      - name: Upload marble-kernel artifact
-        uses: actions/upload-artifact@v7
+            kernel.zip
+      - name: Upload kernel artifact
+        uses: actions/upload-artifact@v7.0.0
         with:
-          name: marble-kernel
+          name: kernel
           path: AnyKernel3-marble/*
           compression-level: 9
       - name: Upload blobs artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.0
         with:
-          name: marble-kernel-blobs
+          name: kernel-blobs
           path: AnyKernel3-pzqqt/*
           compression-level: 9
