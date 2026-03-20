@@ -9,17 +9,17 @@ jobs:
   build-kernel:
     runs-on: ubuntu-22.04
     steps:
-      - name: Free disk space
-        if: ${{ true }}
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: false
+#      - name: Free disk space
+#        if: ${{ true }}
+#        uses: jlumbroso/free-disk-space@main
+#        with:
+#          tool-cache: true
+#          android: true
+#          dotnet: true
+#          haskell: true
+#          large-packages: true
+#          docker-images: true
+#          swap-storage: false
       - name: Set swap space
         uses: pierotofy/set-swap-space@master
         with:
@@ -65,11 +65,11 @@ jobs:
           else
             echo "Using cached ${CLANG_DIR}"
           fi
-      - name: Include MamboSU
+      - name: Include KowSU
         run: |
           cd kernel_platform/xiaomi/sm8450
           rm -rf KernelSU kernelsu drivers/kernelsu
-          curl -LSs "https://raw.githubusercontent.com/RapliVx/KernelSU/refs/heads/master/kernel/setup.sh" | bash -s master
+          curl -LSs "https://raw.githubusercontent.com/KOWX712/KernelSU/refs/heads/master/kernel/setup.sh" | bash -s master
       - name: Patch with custom configurations
         run: |
           cp -rvf aospa-marble-kernel/android_kernel_xiaomi_sm8450/. kernel_platform/xiaomi/sm8450
@@ -86,9 +86,9 @@ jobs:
           name: kernel-image
           path: kernel_platform/device/xiaomi/marble-kernel/Image
           compression-level: 9
-      - name: Upload MamboSU module artifact
+      - name: Upload KowSU module artifact
         uses: actions/upload-artifact@v7.0.0
         with:
-          name: mambosu-module
+          name: kowsu-module
           path: kernel_platform/xiaomi/sm8450/out/kernelsu.ko
           compression-level: 9
