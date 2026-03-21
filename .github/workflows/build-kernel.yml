@@ -7,17 +7,17 @@ jobs:
   build-kernel:
     runs-on: ubuntu-22.04
     steps:
-      - name: Free disk space
-        if: ${{ true }}
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: false
+#      - name: Free disk space
+#        if: ${{ true }}
+#        uses: jlumbroso/free-disk-space@main
+#        with:
+#          tool-cache: true
+#          android: true
+#          dotnet: true
+#          haskell: true
+#          large-packages: true
+#          docker-images: true
+#          swap-storage: false
       - name: Set swap space
         uses: pierotofy/set-swap-space@master
         with:
@@ -90,7 +90,7 @@ jobs:
       - name: Generate release tag
         id: tag
         run: echo "release_tag=AOSPA_Marble_GKI_KSUNext_$(date +'%Y.%m.%d_%H%M')" >> "$GITHUB_OUTPUT"
-      - name: Create Release
+      - name: Create release
         uses: softprops/action-gh-release@v2.6.1
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
