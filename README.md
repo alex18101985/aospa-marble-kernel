@@ -1,7 +1,6 @@
 # AOSPA Marble GKI Kernel
 ## Differences from stock AOSPA kernel:
-- Added KernelSU Next (GKI)
-- Added Westwood TCP (set as default)
+- Added KernelSU Next (Dev)
 
 <p>&nbsp;</p>
 
