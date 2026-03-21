@@ -1,6 +1,6 @@
 # AOSPA Marble GKI Kernel
 ## Differences from stock AOSPA kernel:
-- Added KernelSU Next (Dev)
+- Added KernelSU Next (GKI)
 
 <p>&nbsp;</p>
 
