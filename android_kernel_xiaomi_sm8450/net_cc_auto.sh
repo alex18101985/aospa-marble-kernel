@@ -4,7 +4,7 @@
 # Mobile -> Westwood
 # Requires root
 
-LOG_TAG="net-cc-auto"
+LOG_TAG="net-tcp-auto"
 SLEEP_INTERVAL=15
 
 # Ensure running as root
