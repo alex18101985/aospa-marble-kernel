@@ -77,8 +77,8 @@ jobs:
         run: |
           cd kernel_platform/xiaomi/sm8450
           mkdir -p service.d
-          cp net_cc_auto.sh service.d/
-          chmod 755 service.d/net_cc_auto.sh 
+          cp net-tcp-auto.sh service.d/
+          chmod 755 service.d/net-tcp-auto.sh
       - name: Build kernel
         run: |
           cd kernel_platform/xiaomi/sm8450
