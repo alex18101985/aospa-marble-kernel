@@ -66,7 +66,7 @@ jobs:
       - name: Include KernelSU Next
         run: |
           cd kernel_platform/xiaomi/sm8450
-          rm -rf KernelSU-Next
+          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s -- --cleanup
           curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s dev
       - name: Patch with custom configuration
         run: |
