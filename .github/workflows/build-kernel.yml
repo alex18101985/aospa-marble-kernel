@@ -81,21 +81,21 @@ jobs:
           set -e
           FILE="kernel_platform/xiaomi/sm8450/KernelSU/kernel/apk_sign.c"
           SIG='check_v2_signature(path, 0x363, "4359c171f32543394cbc23ef908c4bb94cad7c8087002ba164c8230948c21549")'
-          echo "Checking if signature already exists..."
+          echo "[*] Checking if signature already exists..."
           if grep -q "$SIG" "$FILE"; then
-            echo "Signature already present — skipping patch"
+            echo "✔ Signature already present — skipping patch"
             exit 0
           fi
-          echo "Applying patch..."
+          echo "[*] Applying patch..."
           sed -i '0,/check_v2_signature(path, EXPECTED_SIZE, EXPECTED_HASH)/{
             s/check_v2_signature(path, EXPECTED_SIZE, EXPECTED_HASH)/check_v2_signature(path, EXPECTED_SIZE, EXPECTED_HASH) || '"$SIG"'/
           }' "$FILE"
-          echo "Verifying patch..."
+          echo "[*] Verifying patch..."
           if ! grep -q "$SIG" "$FILE"; then
-            echo "Patch failed — signature not found"
+            echo "❌ Patch failed — signature not found"
             exit 1
           fi
-          echo "Patch applied successfully"
+          echo "✔ Patch applied successfully"
       - name: Patch with custom configuration
         run: |
           cp -rvf aospa-marble-gki-kernel/android_kernel_xiaomi_sm8450/. kernel_platform/xiaomi/sm8450
@@ -105,7 +105,7 @@ jobs:
         run: |
           cd kernel_platform/xiaomi/sm8450
           export PATH=$PWD/kernel_platform/clang/${CLANG_DIR}/bin:$PATH
-          ./build.sh marble
+          ./build.sh marble --only-kernel
       - name: Zip kernel
         run: |
           git clone --depth=1 -b master https://github.com/alex18101985/AnyKernel3.git AnyKernel3-master
