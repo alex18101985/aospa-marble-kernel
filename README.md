@@ -2,6 +2,7 @@
 ## Differences from stock AOSPA kernel:
 - Added KernelSU (GKI)
 - Added SUSFS
+- Added support for unofficial version of KernelSU manager (backslashxx)
 - Added Westwood TCP (set as default)
 
 <p>&nbsp;</p>
