@@ -119,7 +119,7 @@ get_trees_rev() {
 
 m() {
     make -j$(nproc --all) O=out ARCH=arm64 LLVM=1 LLVM_IAS=1 \
-        KBUILD_BUILD_USER=adithya KBUILD_BUILD_HOST=android-build \
+        KBUILD_BUILD_USER=alex KBUILD_BUILD_HOST=github-build \
         DTC_EXT="$PREBUILTS_DIR/bin/dtc" \
         DTC_OVERLAY_TEST_EXT="$PREBUILTS_DIR/bin/ufdt_apply_overlay" \
         TARGET_PRODUCT=$TARGET $@ || exit $?
@@ -232,7 +232,6 @@ build_dtbs() {
 ##
 
 export PATH="$TC_DIR/bin:$PREBUILTS_DIR/bin:$PATH"
-export LOCALVERSION="$(get_trees_rev)"
 
 $DO_CLEAN && {
     rm -rf out $MODULES_REPO
@@ -245,11 +244,11 @@ echo_i "Generating config..."
 m $DEFCONFIG
 m ./scripts/kconfig/merge_config.sh $DEFCONFIGS vendor/${TARGET}_GKI.config
 scripts/config --file out/.config \
-    --set-str LOCALVERSION "-$BRANCH" \
+    --set-str LOCALVERSION "-AOSPA-Marble-GKI-KSUNext-SuSFS" \
     -d LOCALVERSION_AUTO
 $NO_LTO && {
     scripts/config --file out/.config \
-        --set-str LOCALVERSION "-${BRANCH}-nolto" \
+        --set-str LOCALVERSION "-AOSPA-Marble-GKI-KSUNext-SuSFS-noLTO" \
         -d LTO_CLANG_FULL -e LTO_NONE
     echo_i "Disabled LTO!"
 }
