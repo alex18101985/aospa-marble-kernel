@@ -1,10 +1,10 @@
-name: build-kernel-image
+name: AOSPA Marble GKI Kernel (KernelSU)
 on:
   workflow_dispatch:
 env:
   CLANG_DIR: clang-r510928
 jobs:
-  build-kernel-image:
+  build-kernel:
     runs-on: ubuntu-22.04
     steps:
 #      - name: Free disk space
