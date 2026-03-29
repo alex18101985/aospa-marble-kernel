@@ -1,6 +1,6 @@
-# AOSPA Marble Kernel
+# AOSPA Marble GKI Kernel
 ## Differences from stock AOSPA kernel:
-- Added KernelSU (LKM)
+- Added KernelSU (backslashxx) (GKI)
 - Added Westwood TCP (set as default)
 
 <p>&nbsp;</p>
