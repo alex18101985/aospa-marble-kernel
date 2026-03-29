@@ -82,5 +82,5 @@ jobs:
         uses: actions/upload-artifact@v7.0.0
         with:
           name: kowsu-module
-          path: kernel_platform/xiaomi/sm8450/out/kowsu.ko
+          path: kernel_platform/xiaomi/sm8450/out/kernelsu.ko
           compression-level: 9
