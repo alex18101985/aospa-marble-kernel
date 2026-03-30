@@ -1,4 +1,4 @@
-name: AOSPA Marble GKI Kernel (KernelSU + SuSFS)
+name: AOSPA Marble GKI (KernelSU + SuSFS)
 on:
   workflow_dispatch:
 env:
