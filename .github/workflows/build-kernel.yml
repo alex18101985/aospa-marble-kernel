@@ -1,4 +1,4 @@
-name: AOSPA Marble GKI (KowSU)
+name: AOSPA Marble GKI Kernel (KowSU)
 on:
   workflow_dispatch:
 env:
