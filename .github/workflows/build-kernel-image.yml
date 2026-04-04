@@ -5,7 +5,7 @@ env:
   CLANG_DIR: clang-r596125
 jobs:
   build-kernel-image:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Free disk space
         if: ${{ true }}
