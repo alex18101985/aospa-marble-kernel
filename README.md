@@ -2,6 +2,7 @@
 ## Differences from stock AOSPA kernel:
 - Added KernelSU (LKM)
 - Added Westwood TCP (set as default)
+- Built with latest Clang
 
 <p>&nbsp;</p>
 
