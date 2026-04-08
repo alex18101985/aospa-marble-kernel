@@ -32,7 +32,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6.2.0
         with:
-          python-version: 'pypy3.11'
+          python-version: '3.x'
       - name: Setup build environment
         run: |
           sudo apt-get update
@@ -45,7 +45,7 @@ jobs:
           repo sync
           mkdir -p kernel_platform/device/xiaomi/marble-kernel/dtbs
       - name: Cache Clang
-        uses: actions/cache@v5.0.3
+        uses: actions/cache@v5.0.4
         with:
           path: kernel_platform/clang
           key: clang-r596125
