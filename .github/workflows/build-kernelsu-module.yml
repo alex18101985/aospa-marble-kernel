@@ -35,11 +35,12 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6.2.0
         with:
-          python-version: 'pypy3.11'
+          python-version: '3.x'
       - name: Setup build environment
         run: |
           sudo apt-get update
-          sudo apt-get install -y bc device-tree-compiler
+          sudo apt-get install -y bc bison flex gawk perl cpio tar xz-utils lz4 zstd libelf-dev libssl-dev rsync file git curl wget dwarves build-essential device-tree-compiler python3
+          sudo apt-get clean
           sudo curl --create-dirs -o /usr/local/bin/repo -L https://storage.googleapis.com/git-repo-downloads/repo
           sudo chmod a+rx /usr/local/bin/repo
       - name: Clone repo and sync
@@ -87,6 +88,7 @@ jobs:
       - name: Build KernelSU module
         run: |
           cd kernel_platform/xiaomi/sm8450
+          export PATH=$PWD/kernel_platform/clang/${CLANG_DIR}/bin:$PATH
           ./build.sh marble --only-modules
       - name: Upload KernelSU module artifact
         uses: actions/upload-artifact@v7.0.0
