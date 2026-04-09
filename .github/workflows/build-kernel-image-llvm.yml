@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 env:
   LLVM_VERSION: LLVM-22.1.3
-  CLANG_DIR: kernel_platform/clang/LLVM-22.1.3
+  CLANG_DIR: LLVM-22.1.3
 jobs:
   build-kernel-image-llvm:
     runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ jobs:
           mkdir -p kernel_platform/clang
           cd kernel_platform/clang
           if [ ! -f "${LLVM_VERSION}-Linux-X64.tar.xz" ]; then
-            echo "Downloading LLVM 22.1.3..."
+            echo "Downloading LLVM..."
             curl -L -o ${LLVM_VERSION}-Linux-X64.tar.xz \
               https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.3/${LLVM_VERSION}-Linux-X64.tar.xz
           fi
