@@ -1,7 +1,7 @@
 # AOSPA Marble Kernel
 ## Differences from stock AOSPA kernel:
 - Added Westwood TCP (set as default)
-- Built with latest Clang (r596125)
+- Built with latest Clang
 
 <p>&nbsp;</p>
 
