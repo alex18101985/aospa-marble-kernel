@@ -5,29 +5,29 @@ env:
   CLANG_DIR: clang-r596125
 jobs:
   build-kernel-image:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-22.04
     steps:
-#      - name: Free disk space
-#        uses: endersonmenezes/free-disk-space@main
-#        with:
-#          remove_android: true
-#          remove_dotnet: true
-#          remove_haskell: true
-#          remove_tool_cache: true
-#          remove_swap: false
-#          remove_packages: "azure-cli google-cloud-cli microsoft-edge-stable google-chrome-stable firefox postgresql* temurin-* *llvm* mysql* dotnet-sdk-*"
-#          remove_packages_one_command: true
-#          remove_folders: "/usr/share/swift /usr/share/miniconda /usr/share/az* /usr/local/lib/node_modules /usr/local/share/chromium /usr/local/share/powershell /usr/local/julia /usr/local/aws-cli /usr/local/aws-sam-cli /usr/share/gradle"
-#          rm_cmd: "rmz"
-#          rmz_version: "3.1.1"
-#          testing: false
-#      - name: Set swap space
-#        uses: pierotofy/set-swap-space@master
-#        with:
-#          swap-size-gb: 16
-#      - name: Increase file limit
-#        run: |
-#          sudo sysctl -w vm.swappiness=100
+      - name: Free disk space
+        uses: endersonmenezes/free-disk-space@main
+        with:
+          remove_android: true
+          remove_dotnet: true
+          remove_haskell: true
+          remove_tool_cache: true
+          remove_swap: false
+          remove_packages: "azure-cli google-cloud-cli microsoft-edge-stable google-chrome-stable firefox postgresql* temurin-* *llvm* mysql* dotnet-sdk-*"
+          remove_packages_one_command: true
+          remove_folders: "/usr/share/swift /usr/share/miniconda /usr/share/az* /usr/local/lib/node_modules /usr/local/share/chromium /usr/local/share/powershell /usr/local/julia /usr/local/aws-cli /usr/local/aws-sam-cli /usr/share/gradle"
+          rm_cmd: "rmz"
+          rmz_version: "3.1.1"
+          testing: false
+      - name: Set swap space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 16
+      - name: Increase file limit
+        run: |
+          sudo sysctl -w vm.swappiness=100
       - name: Check repository
         uses: actions/checkout@v6.0.2
         with:
@@ -39,7 +39,8 @@ jobs:
       - name: Setup build environment
         run: |
           sudo apt-get update
-          sudo apt-get install -y bc bison flex build-essential curl device-tree-compiler libssl-dev libelf-dev python3 git ca-certificates cpio xz-utils rsync lz4 unzip zip file wget
+          sudo apt-get install -y bc bison flex gawk perl cpio tar xz-utils lz4 zstd libelf-dev libssl-dev rsync file git curl wget dwarves build-essential device-tree-compiler
+          sudo apt-get clean
           sudo curl --create-dirs -o /usr/local/bin/repo -L https://storage.googleapis.com/git-repo-downloads/repo
           sudo chmod a+rx /usr/local/bin/repo
       - name: Clone repo and sync
@@ -82,6 +83,7 @@ jobs:
       - name: Build kernel image
         run: |
           cd kernel_platform/xiaomi/sm8450
+          export PATH=$PWD/kernel_platform/clang/${CLANG_DIR}/bin:$PATH
           ./build.sh marble --only-kernel
       - name: Upload kernel image artifact
         uses: actions/upload-artifact@v7.0.0
